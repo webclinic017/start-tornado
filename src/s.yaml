@@ -1,0 +1,27 @@
+edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: functionApp       #  项目名称
+access: default  #  秘钥别名
+
+services:
+  bottleExample: #  服务名称
+    component: devsapp/tornado  # 组件名称
+    actions:
+      pre-deploy: # 在deploy之前运行
+        - run: pip3 install -t ./tmp -r requirements.txt  # 要运行的命令行
+          path: ./src # 命令行运行的路径
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: serverless-devs
+        description: Serverless Devs示例程序
+      function:
+        name: tornado
+        description: tornado项目
+        memorySize: 256
+        code:
+          src: ./src
+        customContainerConfig:
+          command: '["python3"]'
+          args: '["index.py"]'
+        environmentVariables:
+          PYTHONPATH: /mnt/auto:/mnt/auto/tmp
