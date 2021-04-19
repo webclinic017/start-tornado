@@ -3,7 +3,7 @@ name: functionApp       #  项目名称
 access: default  #  秘钥别名
 
 services:
-  bottleExample: #  服务名称
+  tornadoExample: #  服务名称
     component: devsapp/tornado  # 组件名称
     actions:
       pre-deploy: # 在deploy之前运行
