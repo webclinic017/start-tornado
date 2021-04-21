@@ -3,7 +3,7 @@
 通过该应用，您可以简单快速的创建一个Tornado框架到阿里云函数计算服务。
 
 - 下载命令行工具：`npm install -g @serverless-devs/s`
-- 初始化一个模版项目：`s init devsapp/tornado`
+- 初始化一个模版项目：`s init devsapp/start-tornado`
 - 进入项目后部署项目：`s deploy`
 
 -----
