@@ -7,12 +7,12 @@ services:
     component: devsapp/tornado  # 组件名称
     actions:
       pre-deploy: # 在deploy之前运行
-        - run: pip3 install -t ./tmp -r requirements.txt  # 要运行的命令行
+        - run: pip3 install -t . -r requirements.txt  # 要运行的命令行
           path: ./src # 命令行运行的路径
     props: #  组件的属性值
       region: cn-shenzhen
       service:
-        name: serverless-devs
+        name: serverless-devs-tornado
         description: Serverless Devs示例程序
       function:
         name: tornado
@@ -22,6 +22,4 @@ services:
           src: ./src
         customContainerConfig:
           command: '["python3"]'
-          args: '["index.py"]'
-        environmentVariables:
-          PYTHONPATH: /mnt/auto:/mnt/auto/tmp
+          args: '["./tornado/index.py"]'
