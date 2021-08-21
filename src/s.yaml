@@ -1,25 +1,36 @@
+# Tornado框架参考文档：https://github.com/devsapp/tornado
+
 edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
-name: functionApp       #  项目名称
+name: tornadoApp       #  项目名称
 access: "{{ access }}"  #  秘钥别名
 
 services:
-  tornadoExample: #  服务名称
+  framework-test: # 服务名称
     component: devsapp/tornado  # 组件名称
     actions:
       pre-deploy: # 在deploy之前运行
         - run: pip3 install -t . -r requirements.txt  # 要运行的命令行
           path: ./src # 命令行运行的路径
-    props: #  组件的属性值
+
+    props: # 组件的属性值
       region: cn-shenzhen
       service:
         name: serverless-devs-tornado
-        description: Serverless Devs示例程序
+        description: 'Serverless Devs示例: Tornado framework service'
       function:
         name: tornado
-        description: tornado项目
-        memorySize: 256
-        code:
-          src: ./src
+        description: 'Serverless Devs示例: Tornado framework function'
         customContainerConfig:
           command: '["python3"]'
-          args: '["./tornado/index.py"]'
+          args: '["/mnt/auto/tornado/index.py"]' # 代码包传入 nas 部署
+          # args: '["./index.py"]' # 代码包直接放入 container
+        code:
+          src: ./src
+          excludes:
+            - .s
+      customDomains:
+        - domainName: auto
+          protocol: HTTP
+          routeConfigs:
+            - path: '/*'
+
